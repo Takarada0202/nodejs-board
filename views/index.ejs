@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="title">
+                <a href="/">main</a>
+            </div>
+            <div class="menuBar">
+                <ul>
+                <% if(is_logined == false){ %>
+                    <li><a href="/login">login</a></li>
+                    <li><a href="/register">register</a></li>
+                    <li><a href="/boardList">board</a></li>
+                <% }else{ %>
+                    <li><%= name %> 님 환영합니다!</li>
+                    <li><a href="/logout">logout</a></li>  
+                <% } %>
+                </ul>
+            </div>
+        </div>
+
+        <div class="boardContainer">
+
+        </div>
+    </nav>
+</body>
+</html>
