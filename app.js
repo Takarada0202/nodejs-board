@@ -43,6 +43,7 @@ app.get('/', (req,res)=>{
         })
     }else{
         res.render('index',{
+            
             is_logined : false
         })
     }
@@ -101,17 +102,20 @@ app.post('/login', (req,res)=>{
         const hashedPassword = await bcrypt.hash(password, salt)
         console.log(data);
         
-        const check =  await bcrypt.compare(data[0].password, hashedPassword)
+        // const check =  await bcrypt.compare(password, hashedPassword)
+
+        const same = bcrypt.compareSync(password, data[0].password)
+        console.log(same);
+        console.log(password);
         console.log(data[0].password);
-        console.log(hashedPassword);
         // console.log(data[0])
         // console.log(id)
         // console.log(data[0].id)
         // console.log(data[0].password)
         // console.log(id == data[0].id)
         // console.log(password == data[0].password)
-        if(id === data.id && check){
-            console.log(id)
+        if(id == data[0].id & bcrypt.compareSync(password, data[0].password) === true){
+            console.log(data.id)
             console.log('로그인 성공')
             // console.log(hashedPassword);
             req.session.is_logined = true
@@ -128,6 +132,7 @@ app.post('/login', (req,res)=>{
             })
         }else{
             console.log('로그인 실패')
+            console.log(data[0].id)
             res.render('login')
         }
     })
@@ -145,6 +150,7 @@ app.get('/logout',(req,res)=>{
 app.get('/boardList', (req,res) => {
     res.render('boardList')
 })
+
 
 
 
