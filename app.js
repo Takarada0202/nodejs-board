@@ -3,12 +3,12 @@ const mysql = require('mysql')
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-
 const session = require('express-session')
 const crypto = require('crypto')
 const FileStore = require('session-file-store')(session) 
 const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs')
+const { title } = require('process')
 const app = express()
 
 const client = mysql.createConnection({
@@ -151,7 +151,31 @@ app.get('/boardList', (req,res) => {
     res.render('boardList')
 })
 
+app.get('/getdata?', (req, res) => {
+    
+    client.query("SELECT * FROM post;", (err, result, fields) => {
+            if (err)
+                throw err
+            else {
+                 res.render('boardList', {
+                    title: "taka",
+                    data: result,
+                })
+        
+            }
+        });
+});
 
+app.get('/addPost', (req,res) => {
+    res.render('addPost')
+})
+
+app.post('/addPostProcess', (req,res) => {
+    console.log(req.body)
+    let body = req.body
+    client.query('INSERT INTO post SET ?',{title_ : body.title, description : body.description, name : body.name, category : body.category})
+    res.redirect('boardList')
+})
 
 
 app.listen(3000, () => {
