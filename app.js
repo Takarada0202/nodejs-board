@@ -163,8 +163,79 @@ app.get('/getdata?', (req, res) => {
                 })
         
             }
-        });
-});
+        })
+})
+
+app.get('/getCategory1?', (req, res) => {
+    
+    client.query("SELECT * FROM post WHERE category = 1", (err, result, fields) => {
+            if (err)
+                throw err
+            else {
+                 res.render('boardList', {
+                    title: "taka",
+                    data: result,
+                })
+        
+            }
+        })
+})
+app.get('/getCategory2?', (req, res) => {
+    
+    client.query("SELECT * FROM post WHERE category = 2", (err, result, fields) => {
+            if (err)
+                throw err
+            else {
+                 res.render('boardList', {
+                    title: "taka",
+                    data: result,
+                })
+        
+            }
+        })
+})
+app.get('/getCategory3?', (req, res) => {
+    
+    client.query("SELECT * FROM post WHERE category = 3", (err, result, fields) => {
+            if (err)
+                throw err
+            else {
+                 res.render('boardList', {
+                    title: "taka",
+                    data: result,
+                })
+        
+            }
+        })
+})
+app.get('/getCategory4?', (req, res) => {
+    
+    client.query("SELECT * FROM post WHERE category = 4", (err, result, fields) => {
+            if (err)
+                throw err
+            else {
+                 res.render('boardList', {
+                    title: "taka",
+                    data: result,
+                })
+        
+            }
+        })
+})
+app.get('/getCategory5?', (req, res) => {
+    
+    client.query("SELECT * FROM post WHERE category = 5", (err, result, fields) => {
+            if (err)
+                throw err
+            else {
+                 res.render('boardList', {
+                    title: "taka",
+                    data: result,
+                })
+        
+            }
+        })
+})
 
 app.get('/addPost', (req,res) => {
     res.render('addPost')
@@ -175,6 +246,22 @@ app.post('/addPostProcess', (req,res) => {
     let body = req.body
     client.query('INSERT INTO post SET ?',{title_ : body.title, description : body.description, name : body.name, category : body.category})
     res.redirect('boardList')
+})
+
+
+app.get('/boardList/:idx', (req,res) => {
+    //res.send(req.params.idx)
+    client.query("SELECT * FROM `post`;" , (err, result) => {
+        if(err)
+            throw err
+        else {
+            res.render('detailPage', {
+                data : result ,
+                idx : req.params.idx
+            })
+        }
+    })
+    
 })
 
 

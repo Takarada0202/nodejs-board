@@ -4,12 +4,29 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <form action="/getdata" method="GET">
-            <input type="submit" value="getData">
-        </form>
-        <form action="/addPost" method="GET">
-            <input type="submit" name="addPost" id="addPost" value="addPost">
-        </form>
+        <div style="display: flex;">
+            <form action="/getdata" method="GET">
+                <input type="submit" value="getAllData">
+            </form>
+            <form action="/getCategory1" method="GET">
+                <input type="submit" value="category1">
+            </form>
+            <form action="/getCategory2" method="GET">
+                <input type="submit" value="category2">
+            </form>
+            <form action="/getCategory3" method="GET">
+                <input type="submit" value="category3">
+            </form>
+            <form action="/getCategory4" method="GET">
+                <input type="submit" value="category4">
+            </form>
+            <form action="/getCategory5" method="GET">
+                <input type="submit" value="category5">
+            </form>
+            <form action="/addPost" method="GET">
+                <input type="submit" name="addPost" id="addPost" value="addPost">
+            </form>
+        </div>
         <br>
         <% if(locals.data){ %>
             <% for(let i=0;i<data.length;i++){ %>
