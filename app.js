@@ -9,6 +9,7 @@ const FileStore = require('session-file-store')(session)
 const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs')
 const { title } = require('process')
+const { redirect } = require('express/lib/response')
 const app = express()
 
 const client = mysql.createConnection({
@@ -161,81 +162,26 @@ app.get('/getdata?', (req, res) => {
                     title: "taka",
                     data: result,
                 })
-        
+                console.log(result);
             }
         })
 })
 
-app.get('/getCategory1?', (req, res) => {
+app.post ('/boardList/search', (req,res) => {
     
-    client.query("SELECT * FROM post WHERE category = 1", (err, result, fields) => {
-            if (err)
-                throw err
-            else {
-                 res.render('boardList', {
-                    title: "taka",
-                    data: result,
-                })
-        
-            }
-        })
+    let body = req.body
+    console.log(body.searchValue)
+    client.query('SELECT * FROM `post` WHERE title_ LIKE ?','%'+body.searchValue+'%',(err,result) =>{
+        if(err)
+            throw err
+        else {
+            res.render('boardList',{
+                data:result
+            })
+        }
+    })
 })
-app.get('/getCategory2?', (req, res) => {
-    
-    client.query("SELECT * FROM post WHERE category = 2", (err, result, fields) => {
-            if (err)
-                throw err
-            else {
-                 res.render('boardList', {
-                    title: "taka",
-                    data: result,
-                })
-        
-            }
-        })
-})
-app.get('/getCategory3?', (req, res) => {
-    
-    client.query("SELECT * FROM post WHERE category = 3", (err, result, fields) => {
-            if (err)
-                throw err
-            else {
-                 res.render('boardList', {
-                    title: "taka",
-                    data: result,
-                })
-        
-            }
-        })
-})
-app.get('/getCategory4?', (req, res) => {
-    
-    client.query("SELECT * FROM post WHERE category = 4", (err, result, fields) => {
-            if (err)
-                throw err
-            else {
-                 res.render('boardList', {
-                    title: "taka",
-                    data: result,
-                })
-        
-            }
-        })
-})
-app.get('/getCategory5?', (req, res) => {
-    
-    client.query("SELECT * FROM post WHERE category = 5", (err, result, fields) => {
-            if (err)
-                throw err
-            else {
-                 res.render('boardList', {
-                    title: "taka",
-                    data: result,
-                })
-        
-            }
-        })
-})
+
 
 app.get('/addPost', (req,res) => {
     res.render('addPost')

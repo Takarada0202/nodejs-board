@@ -8,30 +8,25 @@
             <form action="/getdata" method="GET">
                 <input type="submit" value="getAllData">
             </form>
-            <form action="/getCategory1" method="GET">
-                <input type="submit" value="category1">
-            </form>
-            <form action="/getCategory2" method="GET">
-                <input type="submit" value="category2">
-            </form>
-            <form action="/getCategory3" method="GET">
-                <input type="submit" value="category3">
-            </form>
-            <form action="/getCategory4" method="GET">
-                <input type="submit" value="category4">
-            </form>
-            <form action="/getCategory5" method="GET">
-                <input type="submit" value="category5">
+            <form action="/getdata?" method="GET">
+                <input type="submit" value="catagory1">
             </form>
             <form action="/addPost" method="GET">
-                <input type="submit" name="addPost" id="addPost" value="addPost">
+                <input type="submit" value="AddPost">
+            </form>
+            <form action="/boardList/search" method="post">
+                <input type="text" name="searchValue" id="searchValue" required>
+                <input type="submit" value="Search">
             </form>
         </div>
         <br>
         <% if(locals.data){ %>
             <% for(let i=0;i<data.length;i++){ %>
-                <%= data[i].idx %>,<%= data[i].name %>,<%= data[i].title_ %><br>
+                <%= data[i].idx %>/<%= data[i].title_ %>/<%= data[i].name %>/<%= data[i].category %><br><hr>
             <% } %>
         <% } %>
+        <br>
+        <br>
+        
     </body>
 </html>
