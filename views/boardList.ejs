@@ -22,7 +22,7 @@
         <br>
         <% if(locals.data){ %>
             <% for(let i=0;i<data.length;i++){ %>
-                <%= data[i].idx %>/<%= data[i].title_ %>/<%= data[i].name %>/<%= data[i].category %><br><hr>
+                <%= data[i].idx %>/<a href="/boardList/<%=data[i].idx %>"><%= data[i].title_ %></a>/<%= data[i].name %>/<%= data[i].category %><br><hr>
             <% } %>
         <% } %>
         <br>
