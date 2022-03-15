@@ -149,22 +149,29 @@ app.get('/logout',(req,res)=>{
 })
 
 app.get('/boardList', (req,res) => {
-    res.render('boardList')
+    client.query("SELECT * FROM post;", (err, result, fields) => {
+        if (err)
+            throw err
+        else {
+             res.render('boardList', {
+                data: result,
+            })
+            
+        }
+    })
 })
 
-app.get('/getdata?', (req, res) => {
-    
-    client.query("SELECT * FROM post;", (err, result, fields) => {
-            if (err)
-                throw err
-            else {
-                 res.render('boardList', {
-                    title: "taka",
-                    data: result,
-                })
-                console.log(result);
-            }
-        })
+app.get('/boardList/category/:category', (req,res) => {
+    // res.send(req.params.category)
+    client.query('SELECT * FROM `post` WHERE category = ?;',req.params.category , (err,result) => {
+        if(err)
+            throw err
+        else {
+            res.render('boardList',{
+                data:result
+            })
+        }
+    })
 })
 
 app.post ('/boardList/search', (req,res) => {
@@ -197,7 +204,7 @@ app.post('/addPostProcess', (req,res) => {
 
 app.get('/boardList/:idx', (req,res) => {
     //res.send(req.params.idx)
-    client.query("SELECT * FROM `post`;" , (err, result) => {
+    client.query("SELECT * FROM `post` WHERE idx = ?;",req.params.idx , (err, result) => {
         if(err)
             throw err
         else {

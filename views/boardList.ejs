@@ -5,11 +5,20 @@
     </head>
     <body>
         <div style="display: flex;">
-            <form action="/getdata" method="GET">
+            <form action="/boardList" method="GET">
                 <input type="submit" value="getAllData">
             </form>
-            <form action="/getdata?" method="GET">
-                <input type="submit" value="catagory1">
+            <form action="/boardList/category/1" method="GET">
+                <input type="submit" id="category1"  value="category1">
+            </form>
+            <form action="/boardList/category/2" method="GET">
+                <input type="submit" id="category2"  value="category2">
+            </form>
+            <form action="/boardList/category/3" method="GET">
+                <input type="submit" id="category3"  value="category3">
+            </form>
+            <form action="/boardList/category/4" method="GET">
+                <input type="submit" id="category4"  value="category4">
             </form>
             <form action="/addPost" method="GET">
                 <input type="submit" value="AddPost">
