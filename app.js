@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs')
 const { title } = require('process')
 const { redirect } = require('express/lib/response')
+const { request } = require('http')
 const app = express()
 
 const client = mysql.createConnection({
@@ -20,6 +21,9 @@ const client = mysql.createConnection({
 })
 
 app.use(express.static(path.join(__dirname,'/public')))
+
+app.engine('html', require('ejs').renderFile);
+
 
 app.set('views', __dirname + '\\views')
 app.set('view engine', 'ejs')
@@ -149,16 +153,38 @@ app.get('/logout',(req,res)=>{
 })
 
 app.get('/boardList', (req,res) => {
-    client.query("SELECT * FROM post;", (err, result, fields) => {
-        if (err)
-            throw err
-        else {
-             res.render('boardList', {
-                data: result,
-            })
-            
+    res.render('boardList.html')
+})
+
+app.get('/boardList/data', (req,res) => {
+    client.query("SELECT * FROM post;", (err, result) => {
+        res.status(200).json({
+            result,
+        })
+        const strdata = JSON.stringify(result)
+        // console.log(strdata);
+        const obj = JSON.parse(strdata)
+        for(let i=0;i<obj.length;i++) {
+            console.log(obj[i].idx);
+            console.log(obj[i].title_);
+            console.log(obj[i].name);
+            console.log(obj[i].category);
         }
     })
+})
+
+
+
+
+
+app.post('/boardList',(req,res) => {
+    client.query("SELECT * FROM post;", (err, result) => {
+        res.status(200).json({
+            result
+        })
+        // console.log(result);
+        })
+        console.log(req.body);
 })
 
 app.get('/boardList/category/:category', (req,res) => {

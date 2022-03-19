@@ -5,7 +5,7 @@
     </head>
     <body>
         <div style="display: flex;">
-            <form action="/boardList" method="GET">
+            <form action="/boardList" method="post">
                 <input type="submit" value="getAllData">
             </form>
             <form action="/boardList/category/1" method="GET">
@@ -36,6 +36,18 @@
         <% } %>
         <br>
         <br>
-        
+        <div id="root"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+        $.ajax({
+            method: "post",
+            url: "http://localhost:3000/boardList",
+            data: jsonData,
+            success: (response) => {
+                res = json.parse(response)
+                
+            }
+        })
+
+    </script>
     </body>
 </html>

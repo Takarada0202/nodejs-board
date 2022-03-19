@@ -1,14 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
+    <div style="display: flex;">
+        <form action="/boardList/data" method="get">
+            <input type="submit" value="getAllData">
+        </form>
+        <form action="/boardList/category/1" method="GET">
+            <input type="submit" id="category1"  value="category1">
+        </form>
+        <form action="/boardList/category/2" method="GET">
+            <input type="submit" id="category2"  value="category2">
+        </form>
+        <form action="/boardList/category/3" method="GET">
+            <input type="submit" id="category3"  value="category3">
+        </form>
+        <form action="/boardList/category/4" method="GET">
+            <input type="submit" id="category4"  value="category4">
+        </form>
+        <form action="/addPost" method="GET">
+            <input type="submit" value="AddPost">
+        </form>
+        <form action="/boardList/search" method="post">
+            <input type="text" name="searchValue" id="searchValue" required>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <br>
+    
+    <div id="root"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        
+        function getdata() {
+            $.ajax({
+                method: "get",
+                url: "http://localhost:3000/boardList/data?",
+                success: (response) => {
+                    json = JSON.parse(response)
+                    let res = ""
+                    for (i=0;i<json.lenght;i++){
+                        res+=`
+                            <div>${json[i].idx}</div>
+                        `
+                    }
+                    $('$root').html(res)
+                }
+            })
+        }
+        getdata()    
     </script>
 </body>
+
 </html>
