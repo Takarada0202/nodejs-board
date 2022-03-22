@@ -6,11 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table {
+            width: 1000px;
+            table-layout: fixed;
+            text-align: center;
+        }
+        td {
+            overflow: hidden;
+        }
+        
+    </style>
 </head>
 
 <body>
     <div style="display: flex;">
-        <form action="/boardList/data" method="get">
+        <form action="/boardList" method="GET">
             <input type="submit" value="getAllData">
         </form>
         <form action="/boardList/category/1" method="GET">
@@ -35,7 +46,14 @@
     </div>
     <br>
     
-    <div id="root"></div>
+    <div id="root">
+        <table border="1" id="rootTd">
+            <th>idx</th>
+            <th>title</th>
+            <th>name</th>
+            <th>category</th>
+        </table>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -43,15 +61,14 @@
             $.ajax({
                 method: "get",
                 url: "http://localhost:3000/boardList/data?",
-                success: (response) => {
-                    json = JSON.parse(response)
-                    let res = ""
-                    for (i=0;i<json.lenght;i++){
-                        res+=`
-                            <div>${json[i].idx}</div>
+                success: (res) => {
+                    let root = document.querySelector("#rootTd")
+                    root.innerHTML = ''
+                    res.result.forEach(val => {
+                        root.innerHTML += `
+                        <tr><td>${val.idx}</td><td><a href="/boardList/${val.idx}">${val.title_}</a></td><td>${val.name}</td><td>${val.category}</td><tr>
                         `
-                    }
-                    $('$root').html(res)
+                    })
                 }
             })
         }

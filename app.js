@@ -12,6 +12,7 @@ const { title } = require('process')
 const { redirect } = require('express/lib/response')
 const { request } = require('http')
 const app = express()
+const cors = require("cors")
 
 const client = mysql.createConnection({
     user : 'root',
@@ -23,7 +24,7 @@ const client = mysql.createConnection({
 app.use(express.static(path.join(__dirname,'/public')))
 
 app.engine('html', require('ejs').renderFile);
-
+app.use(cors())
 
 app.set('views', __dirname + '\\views')
 app.set('view engine', 'ejs')
@@ -159,7 +160,7 @@ app.get('/boardList', (req,res) => {
 app.get('/boardList/data', (req,res) => {
     client.query("SELECT * FROM post;", (err, result) => {
         res.status(200).json({
-            result,
+            result
         })
         const strdata = JSON.stringify(result)
         // console.log(strdata);
@@ -177,15 +178,15 @@ app.get('/boardList/data', (req,res) => {
 
 
 
-app.post('/boardList',(req,res) => {
-    client.query("SELECT * FROM post;", (err, result) => {
-        res.status(200).json({
-            result
-        })
-        // console.log(result);
-        })
-        console.log(req.body);
-})
+// app.post('/boardList',(req,res) => {
+//     client.query("SELECT * FROM post;", (err, result) => {
+//         res.status(200).json({
+//             result
+//         })
+//         // console.log(result);
+//         })
+//         console.log(req.body);
+// })
 
 app.get('/boardList/category/:category', (req,res) => {
     // res.send(req.params.category)
